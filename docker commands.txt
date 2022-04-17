@@ -1,0 +1,7 @@
+docker network create campini-network
+
+docker run -p 3306:3306 --name nest-mysql -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=campini -d --rm --network campini-network  -v mysql_volume:/var/lib/mysql mysql
+
+docker build -t nest:1.0 .
+
+docker run -p 3000:3000 --name nest-app --rm --network campini-network nest:1.0
